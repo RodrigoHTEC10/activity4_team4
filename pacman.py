@@ -1,7 +1,7 @@
 """Pacman, classic arcade game.
 
 Modified by: Rodrigo Alejandro Hurtado Cortes
-Last modified date: May 8th, 2026  
+Last modified date: May 8th, 2026
 
 Exercises
 
@@ -12,10 +12,23 @@ Exercises
 5. Make the ghosts smarter.
 """
 
-# Import of required libraries
-
 from random import choice
-from turtle import *
+from turtle import (
+    Turtle,
+    bgcolor,
+    clear,
+    done,
+    dot,
+    goto,
+    hideturtle,
+    listen,
+    onkey,
+    ontimer,
+    setup,
+    tracer,
+    update,
+    up,
+)
 
 from freegames import floor, vector
 
@@ -26,12 +39,14 @@ path = Turtle(visible=False)
 writer = Turtle(visible=False)
 aim = vector(5, 0)
 pacman = vector(-40, -80)
+
 ghosts = [
     [vector(-180, 160), vector(5, 0)],
     [vector(-180, -160), vector(0, 5)],
     [vector(100, 160), vector(0, -5)],
     [vector(100, -160), vector(-5, 0)],
 ]
+
 # fmt: off
 # Modification of the last column to add new version of board
 tiles = [
@@ -59,17 +74,12 @@ tiles = [
 # fmt: on
 
 
-
 def square(x, y):
-    """
-    Draw square using path at (x, y).
+    """Draw square using path at (x, y).
 
     Args:
         x (float): Position at x.
         y (float): Position at y.
-
-    Returns:
-        Null
     """
 
     path.up()
@@ -77,7 +87,7 @@ def square(x, y):
     path.down()
     path.begin_fill()
 
-    for count in range(4):
+    for _ in range(4):
         path.forward(20)
         path.left(90)
 
@@ -85,33 +95,31 @@ def square(x, y):
 
 
 def offset(point):
-    """
-    Return offset of point in tiles.
+    """Return offset of point in tiles.
 
-    Args: 
-        point: Object that contains (x [float], y [float])
-    
+    Args:
+        point: Object that contains x and y coordinates.
+
     Returns:
-        An integer of the index
-    
+        int: Index of the tile.
     """
+
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
-    index = int(x + y * 20)
-    return index
+
+    return int(x + y * 20)
 
 
 def valid(point):
-    """
-    Return True if point is valid in tiles.
+    """Return True if point is valid in tiles.
 
-    Args: 
-        point: Object that contains (x [float], y [float])
-    
-    Return:
-        boolean that indicates if the position at point is valid
-    
+    Args:
+        point: Object that contains x and y coordinates.
+
+    Returns:
+        bool: True if the position is valid.
     """
+
     index = offset(point)
 
     if tiles[index] == 0:
@@ -127,6 +135,7 @@ def valid(point):
 
 def world():
     """Draw world using path."""
+
     bgcolor('black')
     path.color('blue')
 
@@ -136,15 +145,20 @@ def world():
         if tile > 0:
             x = (index % 20) * 20 - 200
             y = 180 - (index // 20) * 20
+
             square(x, y)
 
             if tile == 1:
                 path.up()
                 path.goto(x + 10, y + 10)
-                path.dot(5, 'yellow') # Modification of color: white -> yellow && size: 2 -> 5
+
+                # Modified color from white to yellow and size from 2 to 5
+                path.dot(5, 'yellow')
+
 
 def move():
     """Move pacman and all ghosts."""
+
     writer.undo()
     writer.write(state['score'])
 
@@ -158,8 +172,10 @@ def move():
     if tiles[index] == 1:
         tiles[index] = 2
         state['score'] += 1
+
         x = (index % 20) * 20 - 200
         y = 180 - (index // 20) * 20
+
         square(x, y)
 
     up()
@@ -176,7 +192,9 @@ def move():
                 vector(0, 5),
                 vector(0, -5),
             ]
+
             plan = choice(options)
+
             course.x = plan.x
             course.y = plan.y
 
@@ -195,24 +213,30 @@ def move():
 
 def change(x, y):
     """Change pacman aim if valid."""
+
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
 
 
-# Initialization of the game and call to functions world and move
+# Initialization of the game
 
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
+
 writer.goto(160, 160)
 writer.color('white')
 writer.write(state['score'])
+
 listen()
+
 onkey(lambda: change(5, 0), 'Right')
 onkey(lambda: change(-5, 0), 'Left')
 onkey(lambda: change(0, 5), 'Up')
 onkey(lambda: change(0, -5), 'Down')
+
 world()
 move()
+
 done()
