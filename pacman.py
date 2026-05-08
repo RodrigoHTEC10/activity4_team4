@@ -1,5 +1,8 @@
 """Pacman, classic arcade game.
 
+Modified by: Rodrigo Alejandro Hurtado Cortes
+Last modified date: May 8th, 2026  
+
 Exercises
 
 1. Change the board.
@@ -9,10 +12,14 @@ Exercises
 5. Make the ghosts smarter.
 """
 
+# Import of required libraries
+
 from random import choice
 from turtle import *
 
 from freegames import floor, vector
+
+# Declaration of initial variables
 
 state = {'score': 0}
 path = Turtle(visible=False)
@@ -26,6 +33,7 @@ ghosts = [
     [vector(100, -160), vector(-5, 0)],
 ]
 # fmt: off
+# Modification of the last column to add new version of board
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
@@ -51,8 +59,19 @@ tiles = [
 # fmt: on
 
 
+
 def square(x, y):
-    """Draw square using path at (x, y)."""
+    """
+    Draw square using path at (x, y).
+
+    Args:
+        x (float): Position at x.
+        y (float): Position at y.
+
+    Returns:
+        Null
+    """
+
     path.up()
     path.goto(x, y)
     path.down()
@@ -66,7 +85,16 @@ def square(x, y):
 
 
 def offset(point):
-    """Return offset of point in tiles."""
+    """
+    Return offset of point in tiles.
+
+    Args: 
+        point: Object that contains (x [float], y [float])
+    
+    Returns:
+        An integer of the index
+    
+    """
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
@@ -74,7 +102,16 @@ def offset(point):
 
 
 def valid(point):
-    """Return True if point is valid in tiles."""
+    """
+    Return True if point is valid in tiles.
+
+    Args: 
+        point: Object that contains (x [float], y [float])
+    
+    Return:
+        boolean that indicates if the position at point is valid
+    
+    """
     index = offset(point)
 
     if tiles[index] == 0:
@@ -104,8 +141,7 @@ def world():
             if tile == 1:
                 path.up()
                 path.goto(x + 10, y + 10)
-                path.dot(5, 'yellow')
-
+                path.dot(5, 'yellow') # Modification of color: white -> yellow && size: 2 -> 5
 
 def move():
     """Move pacman and all ghosts."""
@@ -163,6 +199,8 @@ def change(x, y):
         aim.x = x
         aim.y = y
 
+
+# Initialization of the game and call to functions world and move
 
 setup(420, 420, 370, 0)
 hideturtle()
