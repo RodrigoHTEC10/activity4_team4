@@ -16,12 +16,12 @@ Modifications performed:
 
 
 ### Aranza Sanchez Cobo - A01708437
-Modified game:
+Modified game: Memory
 
-Modifications performed:
+Modifications performed: Changed the color of the numbers from black to maroon
 
 
 ### Luis Alcantara Perez - A01711208
-Modified game: 
+Modified game: Pong
 
-Modifications performed:
+Modifications performed: Slowed the ball down 
