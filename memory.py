@@ -9,8 +9,30 @@ Exercises:
 5. Use letters instead of tiles.
 """
 
-from random import *
-from turtle import *
+from random import shuffle
+
+from turtle import (
+    up,
+    goto,
+    down,
+    color,
+    begin_fill,
+    forward,
+    left,
+    end_fill,
+    clear,
+    shape,
+    stamp,
+    write,
+    update,
+    ontimer,
+    setup,
+    addshape,
+    hideturtle,
+    tracer,
+    onscreenclick,
+    done,
+)
 
 from freegames import path
 
@@ -27,9 +49,11 @@ def square(x, y):
     down()
     color('black', 'white')
     begin_fill()
+
     for count in range(4):
         forward(50)
         left(90)
+
     end_fill()
 
 
@@ -70,11 +94,13 @@ def draw():
 
     mark = state['mark']
 
-    if mark is not None and hide[mark]: """Here we defined how the numbers will look."""
+    # Here we defined how the numbers will look.
+    # We changed the color from black to maroon.
+    if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
         goto(x + 2, y)
-        color('maroon') """Here we changed the color of the numbers from black to maroon."""
+        color('maroon')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
     update()
@@ -82,6 +108,7 @@ def draw():
 
 
 shuffle(tiles)
+
 setup(420, 420, 370, 0)
 addshape(car)
 hideturtle()
