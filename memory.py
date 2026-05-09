@@ -74,7 +74,7 @@ def draw():
         x, y = xy(mark)
         up()
         goto(x + 2, y)
-        color('black')
+        color('maroon')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
     update()
