@@ -8,11 +8,11 @@ Exercises
 4. Change the size of the paddles.
 5. Change how the ball bounces off walls.
 6. How would you add a computer player?
-6. Add a second ball.
+7. Add a second ball.
 """
 
 from random import choice, random
-from turtle import *
+import turtle
 
 from freegames import vector
 
@@ -34,32 +34,36 @@ def move(player, change):
 
 def rectangle(x, y, width, height):
     """Draw rectangle at (x, y) with given width and height."""
-    up()
-    goto(x, y)
-    down()
-    begin_fill()
-    for count in range(2):
-        forward(width)
-        left(90)
-        forward(height)
-        left(90)
-    end_fill()
+    turtle.up()
+    turtle.goto(x, y)
+    turtle.down()
+    turtle.begin_fill()
+
+    for _ in range(2):
+        turtle.forward(width)
+        turtle.left(90)
+        turtle.forward(height)
+        turtle.left(90)
+
+    turtle.end_fill()
 
 
 def draw():
     """Draw game and move pong ball."""
-    clear()
+    turtle.clear()
+
     rectangle(-200, state[1], 10, 50)
     rectangle(190, state[2], 10, 50)
 
     ball.move(aim)
+
     x = ball.x
     y = ball.y
 
-    up()
-    goto(x, y)
-    dot(10)
-    update()
+    turtle.up()
+    turtle.goto(x, y)
+    turtle.dot(10)
+    turtle.update()
 
     if y < -200 or y > 200:
         aim.y = -aim.y
@@ -82,16 +86,18 @@ def draw():
         else:
             return
 
-    ontimer(draw, 50)
+    turtle.ontimer(draw, 50)
 
 
-setup(420, 420, 370, 0)
-hideturtle()
-tracer(False)
-listen()
-onkey(lambda: move(1, 20), 'w')
-onkey(lambda: move(1, -20), 's')
-onkey(lambda: move(2, 20), 'i')
-onkey(lambda: move(2, -20), 'k')
+turtle.setup(420, 420, 370, 0)
+turtle.hideturtle()
+turtle.tracer(False)
+turtle.listen()
+
+turtle.onkey(lambda: move(1, 20), "w")
+turtle.onkey(lambda: move(1, -20), "s")
+turtle.onkey(lambda: move(2, 20), "i")
+turtle.onkey(lambda: move(2, -20), "k")
+
 draw()
-done()
+turtle.done()
