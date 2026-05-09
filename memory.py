@@ -70,11 +70,11 @@ def draw():
 
     mark = state['mark']
 
-    if mark is not None and hide[mark]:
+    if mark is not None and hide[mark]: """Here we defined how the numbers will look."""
         x, y = xy(mark)
         up()
         goto(x + 2, y)
-        color('maroon')
+        color('maroon') """Here we changed the color of the numbers from black to maroon."""
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
     update()
